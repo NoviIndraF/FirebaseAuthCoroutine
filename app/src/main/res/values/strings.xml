@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">FirebaseAuthCoroutine</string>
+    <string name="create_account">Create Account</string>
+    <string name="name">name</string>
+    <string name="email">email</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="or_register_with">or register with</string>
+    <string name="dont_have_an_account_yet_register_now">
+    Don\'t have an account yet? <big><b>Register Now</b></big>
+</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="or_log_in_with">or login with</string>
+</resources>
