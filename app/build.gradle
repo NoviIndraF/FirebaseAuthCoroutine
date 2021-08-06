@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.google.gms.google-services'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -23,6 +24,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -39,8 +45,33 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
 
-    implementation 'com.google.android.material:material:$materialDesignVersion'
+    implementation "com.google.android.material:material:$material_design_version"
+
+    //Firebase
     implementation 'com.google.firebase:firebase-analytics-ktx:19.0.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
+
+    //Lifecycle
+    kapt "androidx.lifecycle:lifecycle-livedata-ktx:$life_cycle"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.3.1"
+
+    //ViewModel Kotlin Support
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$life_cycle"
+
+    //Google Auth
+    implementation "com.google.android.gms:play-services-auth:19.2.0"
+
+    //Firestore
+    implementation "com.google.firebase:firebase-firestore:23.0.3"
+
+    //Koin
+    implementation "org.koin:koin-android:2.1.6"
+    implementation "org.koin:koin-androidx-viewmodel:2.1.6"
+
+    //Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.3"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FirebaseAuthCoroutine">
         <activity
-            android:name=".ui.RegisterActivity"
+            android:name=".MainActivity"
             android:exported="true" />
         <activity
             android:name=".ui.LoginActivity"
@@ -19,7 +19,7 @@
             android:name=".ui.SplashScreenActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.RegisterActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

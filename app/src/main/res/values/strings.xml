@@ -11,4 +11,8 @@
 </string>
     <string name="welcome_back">Welcome Back</string>
     <string name="or_log_in_with">or login with</string>
+
+    <string name="registration_successful">Registraion successful!</string>
+    <string name="login_successful">Login Successful!</string>
+    <string name="request_canceled">Request canceled</string>
 </resources>
