@@ -54,4 +54,61 @@ class UserRepositoryImpl : UserRepository{
         return firebaseAuth.currentUser
     }
 
+    override suspend fun logInUserFromAuthWithEmailAndPassword(
+        email: String,
+        password: String
+    ): Result<FirebaseUser?> {
+        try {
+            return when (val resultDocumentSnapshot = firebaseAuth.signInWithEmailAndPassword(email, password).await()){
+                is Result.Success -> {
+                    Log.i(TAG, "Result.Success")
+                    val firebaseUser = resultDocumentSnapshot.data.user
+                    Result.Success(firebaseUser)
+                }
+
+                is Result.Error->{
+                    Log.i(TAG, "${resultDocumentSnapshot.exception}")
+                    Result.Error(resultDocumentSnapshot.exception)
+                }
+
+                is Result.Canceled-> {
+                    Log.i(TAG, "${resultDocumentSnapshot.exception}")
+                    Result.Canceled(resultDocumentSnapshot.exception)
+                }
+                is Result.Loading -> TODO()
+            }
+        }
+        catch (exception : Exception)
+        {
+            return Result.Error(exception)
+        }
+    }
+
+    override suspend fun getUserFromFireStore(userId: String): Result<User>? {
+        try {
+            return when(val resultDocumentSnapshot = userCollection.document(userId).get().await())
+            {
+                is Result.Success -> {
+                    val user = resultDocumentSnapshot.data.toObject(User::class.java)!!
+                    Result.Success(user)
+                }
+                is Result.Error -> {
+                    Result.Error(resultDocumentSnapshot.exception)
+                }
+                is Result.Canceled -> {
+                    Result.Canceled(resultDocumentSnapshot.exception)
+                }
+                is Result.Loading -> TODO()
+            }
+        }
+        catch (exception: Exception)
+        {
+            return Result.Error(exception)
+        }
+    }
+
+    override suspend fun logOutUser() {
+        firebaseAuth.signOut()
+    }
+
 }

@@ -106,6 +106,56 @@ class FirebaseViewModel(
         }
     }
 
+    fun logInUserFromAuthWithEmailAndPassword(email: String, password: String, activity: Activity){
+        launchDataLoad {
+            viewModelScope.launch {
+                when(val result=userRepository.logInUserFromAuthWithEmailAndPassword(email, password))
+                {
+                    is Result.Success ->{
+                        Log.i(TAG, "SignIn - Result.Success - User: ${result.data}")
+                        result.data?.let { firebaseUser ->
+                            getUserFromFirestore(firebaseUser.uid, activity)
+                            _toast.value = activity.getString(R.string.login_successful)
+                        }
+                    }
+
+                    is Result.Error ->{
+                        _toast.value = result.exception.message
+                    }
+
+                    is Result.Canceled-> {
+                        _toast.value = activity.getString(R.string.request_canceled)
+                    }
+                }
+            }
+        }
+    }
+
+    fun logOutUser(){
+        viewModelScope.launch {
+            userRepository.logOutUser()
+        }
+    }
+
+    suspend fun getUserFromFirestore(userId: String, activity: Activity){
+        when(val result = userRepository.getUserFromFireStore(userId))
+        {
+            is Result.Success<*> ->{
+                val _user = result.data
+                _currentUserMLD.value = _user as User?
+                startMainActivity(activity = activity)
+            }
+
+            is Result.Error-> {
+                _toast.value = result.exception.message
+            }
+
+            is Result.Canceled-> {
+                _toast.value = activity.getString(R.string.request_canceled)
+            }
+        }
+    }
+
     fun checkUserLoggedIn(): FirebaseUser?{
         var _firebaseUser: FirebaseUser? = null
         viewModelScope.launch {

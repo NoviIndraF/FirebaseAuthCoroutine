@@ -35,8 +35,10 @@ class SplashScreenActivity : AppCompatActivity() {
                 startActivity(RegisterActivity())
             }
             else{
+
                 currentFirebaseUser?.let { firebaseUser ->
                     Log.i(TAG, firebaseUser.uid)
+                    firebaseViewModel.getUserFromFirestore(firebaseUser.uid, this@SplashScreenActivity)
                     startActivity(MainActivity())
                 }
             }

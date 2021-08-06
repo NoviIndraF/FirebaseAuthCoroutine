@@ -1,5 +1,6 @@
 package com.nifcompany.firebaseauthcoroutine.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -30,6 +31,10 @@ class RegisterActivity : AppCompatActivity() {
                     this
                 )
             }
+        }
+
+        binding.tvRegisterOrlogin.setOnClickListener {
+            startLoginActivity()
         }
 
         firebaseViewModel.toast.observe(this, Observer { message ->
@@ -84,5 +89,10 @@ class RegisterActivity : AppCompatActivity() {
         else{
             true
         }
+    }
+
+    private fun startLoginActivity(){
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
     }
 }
