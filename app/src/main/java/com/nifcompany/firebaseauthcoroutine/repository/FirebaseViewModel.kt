@@ -106,7 +106,13 @@ class FirebaseViewModel(
         }
     }
 
-
+    fun checkUserLoggedIn(): FirebaseUser?{
+        var _firebaseUser: FirebaseUser? = null
+        viewModelScope.launch {
+            _firebaseUser = userRepository.checkLoggedIn()
+        }
+        return  _firebaseUser
+    }
 
     fun onToastShown(){
         _toast.value = null
@@ -120,7 +126,8 @@ class FirebaseViewModel(
     fun createUserObject(firebaseUser: FirebaseUser, name: String, profilePicture: String=""): User{
         val currentUser = User(
             id = firebaseUser.uid,
-            name = name
+            name = name,
+            profilePicture = profilePicture
         )
 
         return currentUser

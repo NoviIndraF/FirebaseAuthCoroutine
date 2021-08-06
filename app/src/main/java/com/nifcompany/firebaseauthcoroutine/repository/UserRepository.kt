@@ -8,4 +8,5 @@ import com.nifcompany.firebaseauthcoroutine.utils.Result
 interface UserRepository {
     suspend fun registerUserFromAuthWithEmailAndPassword(email: String, password: String, context: Context): Result<FirebaseUser?>
     suspend fun createUserInFirestore(user: User): Result<Void?>
+    suspend fun checkLoggedIn():FirebaseUser?
 }

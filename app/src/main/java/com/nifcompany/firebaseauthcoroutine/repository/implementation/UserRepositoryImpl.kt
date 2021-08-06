@@ -49,4 +49,9 @@ class UserRepositoryImpl : UserRepository{
             Result.Error(exception)
         }
     }
+
+    override suspend fun checkLoggedIn(): FirebaseUser? {
+        return firebaseAuth.currentUser
+    }
+
 }
