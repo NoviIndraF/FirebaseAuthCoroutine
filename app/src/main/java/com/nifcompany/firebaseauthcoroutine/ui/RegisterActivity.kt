@@ -6,23 +6,20 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.nifcompany.firebaseauthcoroutine.databinding.ActivityRegisterBinding
 import com.nifcompany.firebaseauthcoroutine.repository.FirebaseViewModel
+import org.koin.android.ext.android.inject
 
 private val TAG = "RegisterActivity"
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-    private lateinit var firebaseViewModel: FirebaseViewModel
+    private val firebaseViewModel: FirebaseViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        firebaseViewModel = ViewModelProvider(this)
-            .get(FirebaseViewModel::class.java)
 
         binding.btnRegisterLogin.setOnClickListener {
             if (validateName() && validateEmail() && validatePassword()){

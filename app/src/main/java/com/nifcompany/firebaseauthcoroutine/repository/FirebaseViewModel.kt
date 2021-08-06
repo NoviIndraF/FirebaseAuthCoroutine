@@ -19,7 +19,9 @@ import com.nifcompany.firebaseauthcoroutine.utils.Result
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class FirebaseViewModel :ViewModel() {
+class FirebaseViewModel(
+    var userRepository: UserRepository
+) :ViewModel() {
     private val _toast = MutableLiveData<String?>()
     val toast: LiveData<String?>
     get() = _toast
@@ -31,8 +33,6 @@ class FirebaseViewModel :ViewModel() {
     private val _currentUserMLD = MutableLiveData(User())
     val currentUserLD: LiveData<User>
     get() = _currentUserMLD
-
-    val userRepository: UserRepository = UserRepositoryImpl()
 
     fun registerUSerFromAuthWithEmailAndPassword(name: String, email: String, password: String, activity: Activity){
         launchDataLoad {
